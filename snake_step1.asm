@@ -56,6 +56,20 @@ start:
 	ldi r17,0
 	std Y+1, r17
 
+	; initialize apple coordinates at (1,5)
+	;  Y+2 (102): apple x
+	;  Y+3 (103): apple y
+	ldi r17, 1
+	std Y+2, r17
+	ldi r17, 5
+	std Y+3, r17
+
+	ldd r20, Y+2
+	ldd r21, Y+3
+	ldi r16,1
+	call setpixel
+
+
 mainloop:
 	; YOUR REPEATED CODE GOES HERE
 	ldd r20,Y+10
@@ -96,10 +110,58 @@ mainloop:
 	ldd r21,Y+11
 	ldi r16,1
 	call setpixel
+	
+	call handleApple
 
 	call delay
 
 	jmp mainloop
+
+handleApple:
+	push r17
+	push r18
+	push r19
+	push r20
+
+	ldd r17, Y+10 ; snake x
+	ldd r18, Y+11 ; snake y
+	ldd r19, Y+2 ; apple x
+	ldd r20, Y+3 ; apple y
+
+	cp r17, r19
+	brne end0
+	cp r18, r20
+	brne end0
+
+	; if true do this
+	; Move the apple
+	ldd r17, Y+2
+	ldi r18, 23
+	add r17, r18
+	andi r17, 7
+	std Y+2, r17
+
+	ldd r17, Y+3
+	ldi r18, 23
+	add r17, r18
+	andi r17, 7
+	std Y+3, r17
+
+	ldd r20, Y+2
+	ldd r21, Y+3
+	ldi r16,1
+	call setpixel
+
+
+	end0:
+
+
+	pop r20
+	pop r19
+	pop r18
+	pop r17	
+
+	ret
 
 delay:
 	ldi r22, 50

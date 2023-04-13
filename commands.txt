@@ -1,0 +1,12 @@
+note: replace replace-me.ext with your file
+
+build file
+avra [replace-me.asm]
+avra snake_step1.asm
+
+list usb devices in ports
+ls /dev/tty*
+
+flash to arduino
+avrdude -p atmega328p -c arduino -P /dev/ttyACM0 -U flash:w:[replace-me.hex]:i
+avrdude -p atmega328p -c arduino -P /dev/ttyACM0 -U flash:w:snake_step1.hex:i

@@ -97,24 +97,26 @@ mainloop:
 	ldi r16,1
 	call setpixel
 
-	; delay
-	ldi r22, 40
-	outloop:
-		ldi r21, 255
-		middleloop:
-			ldi r20, 255
-				innerloop: 
-					dec r20
-					brne innerloop
-
-					dec r21
-					brne middleloop
-
-					dec r22
-					brne outloop
+	call delay
 
 	jmp mainloop
 
+delay:
+	ldi r22, 50
+		outloop:
+			ldi r21, 255
+			middleloop:
+				ldi r20, 255
+					innerloop: 
+						dec r20
+						brne innerloop
+
+						dec r21
+						brne middleloop
+
+						dec r22
+						brne outloop
+	ret
 
 gameover:
 	jmp gameover
@@ -124,11 +126,12 @@ button1:
 	push r17
 	push r18
 	push r19
-	push r22
+	push r20
+
 
 	; YOUR BUTTON 1 RESPONSE CODE HERE
 	ldd r19, Y+0 ; dx
-	ldd r22, Y+1 ; dy
+	ldd r20, Y+1 ; dy
 	
 	cpi r19, 1
 	brne b0
@@ -150,7 +153,7 @@ button1:
 	jmp end
 
 	b1:
-	cpi r22, -1
+	cpi r20, -1
 	brne b2
 	; move left
 	ldi r17, -1
@@ -169,7 +172,7 @@ button1:
 
 	end:
 	
-	pop r22
+	pop r20
 	pop r19
 	pop r18
 	pop r17

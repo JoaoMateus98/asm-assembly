@@ -7,6 +7,10 @@ avra snake_step1.asm
 list usb devices in ports
 ls /dev/tty*
 
-flash to arduino
+flash to arduino 
+linux:
 avrdude -p atmega328p -c arduino -P /dev/ttyACM0 -U flash:w:[replace-me.hex]:i
 avrdude -p atmega328p -c arduino -P /dev/ttyACM0 -U flash:w:snake_step1.hex:i
+
+mac:
+avrdude -p atmega328p -c arduino -P /dev/tty.usbmodem1101 -U flash:w:snake_step1:i

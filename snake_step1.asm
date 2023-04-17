@@ -224,7 +224,25 @@ delay:
 	ret
 
 gameover:
-	jmp gameover
+	clrscreen0:
+		push r16
+		push r20
+		push r21
+		ldi r16,1
+		ldi r20,7
+	cls_loop10:
+		ldi r21,7
+	cls_loop20:
+		call setpixel
+		dec r21
+		brge cls_loop20
+		dec r20
+		brge cls_loop10
+
+		pop r21
+		pop r20
+		pop r16
+		jmp gameover
 
 button1:
 	cli

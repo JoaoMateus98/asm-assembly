@@ -50,6 +50,16 @@ start:
 	std Y+10,r17
 	std Y+11,r17
 
+	; initialized snake body
+	ldi r17, 1
+	std Y+12, r17
+	ldi r17, 2
+	std Y+13, r17
+	ldi r17, 0
+	std Y+14, r17
+	ldi r17, 2
+	std Y+15, r17
+
 	; initialize dx and dy
 	ldi r17,1
 	std Y+0,r17
@@ -64,9 +74,18 @@ start:
 	ldi r17, 5
 	std Y+3, r17
 
+	
 	ldd r20, Y+2
 	ldd r21, Y+3
 	ldi r16,1
+	call setpixel
+	ldd r20, Y+12
+	ldd r21, Y+13
+	ldi r16, 1
+	call setpixel
+	ldd r20, Y+14
+	ldd r21, Y+15
+	ldi r16, 1
 	call setpixel
 
 

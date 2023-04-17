@@ -79,6 +79,12 @@ start:
 	ldd r21, Y+3
 	ldi r16,1
 	call setpixel
+
+	; turn on snake head, body, and tail
+	ldd r20, Y+10
+	ldd r21, Y+11
+	ldi r16, 1
+	call setpixel
 	ldd r20, Y+12
 	ldd r21, Y+13
 	ldi r16, 1
@@ -91,10 +97,20 @@ start:
 
 mainloop:
 	; YOUR REPEATED CODE GOES HERE
-	ldd r20,Y+10
-	ldd r21,Y+11
+	ldd r20,Y+14
+	ldd r21,Y+15
 	ldi r16,0
 	call setpixel
+
+	; copy Y+12 to Y+14, Y+13 to Y+15, then Y+10 to Y+12, Y+11 to Y+13
+	ldd r17, Y+12
+	std Y+14, r17
+	ldd r17, Y+13
+	std Y+15, r17
+	ldd r17, Y+10
+	std Y+12, r17
+	ldd r17, Y+11
+	std Y+13, r17
 	
 	; set x=x+dx
 	ldd r17,Y+10

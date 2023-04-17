@@ -94,6 +94,10 @@ start:
 	ldi r16, 1
 	call setpixel
 
+	; initial snake speed
+	ldi r17, 255
+	std Y+5, r17
+
 
 mainloop:
 	; YOUR REPEATED CODE GOES HERE
@@ -168,8 +172,7 @@ handleApple:
 	cp r18, r20
 	brne end0
 
-	; if true do this
-	; Move the apple
+	; if true move apple
 	ldd r17, Y+2
 	ldi r18, 23
 	add r17, r18
@@ -187,6 +190,11 @@ handleApple:
 	ldi r16,1
 	call setpixel
 
+	; speed up snake
+	ldd r17, Y+5
+	subi r17, 20
+	std Y+5, r17
+
 
 	end0:
 
@@ -199,11 +207,11 @@ handleApple:
 	ret
 
 delay:
-	ldi r22, 50
+	ldi r22, 40
 		outloop:
 			ldi r21, 255
 			middleloop:
-				ldi r20, 255
+				ldd r20, Y+5
 					innerloop: 
 						dec r20
 						brne innerloop
